@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trip Planner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      width: 100%;
+      background-color: #007BFF;
+      color: white;
+      padding: 8px;
+      font-size: 1rem;
+      border-radius: 4px;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    ul li {
+      padding: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Trip Planner</h1>
+
+    <label for="number_of_people">Number of People:</label>
+    <input type="number" id="number_of_people" min="2" value="2">
+
+    <div id="city_inputs">
+      <div class="city_input">
+        <label for="city_0">City 0:</label>
+        <input type="text" id="city_0">
+      </div>
+      <div class="city_input">
+        <label for="city_1">City 1:</label>
+        <input type="text" id="city_1">
+      </div>
+    </div>
+
+    <button onclick="getDistances()">Get Distances</button>
+
+    <ul id="output">
+    </ul>
+  </div>
+
+  <script>
+    function addCityInput() {
+      var number_of_people = document.getElementById("number_of_people").value;
+      var city_inputs = document.getElementById("city_inputs");
+
+      city_inputs.innerHTML = "";
+      for (var i = 0; i < number_of_people; i++) {
+        var city_input = document.createElement("div");
+        city_input.className = "city_input";
+
+        var label = document.createElement("label");
+        label.htmlFor = "city_" + i;
+        label.innerText = "City " + i + ":";
+
+        var input = document.createElement("input");
+        input.type = "text";
+        input.id = "city_" + i;
+
+        city_input.appendChild(label);
+        city_input.appendChild(input);
+        city_inputs.appendChild(city_input);
+      }
+    }
+
+    function getDistances() {
+      var number_of_people = parseInt(document.getElementById("number_of_people").value);
+      var cities = [];
+
+      for (var i = 0; i < number_of_people; i++) {
+        cities.push(document.getElementById("city_" + i).value);
+      }
+
+      // This is where you would implement the distance calculation logic and display the output.
+      // As calculating distances between cities requires an API or external library, it's not feasible to provide the full solution here.
+      // You can use a library (e.g. Geolib) or service (e.g. Google's Distance Matrix API) to achieve this.
+
+      // For the sake of demonstration, the following code simply displays the list of cities in the output.
+      var output = document.getElementById("output");
+      output.innerHTML = "";
+      cities.forEach(function(city) {
+        var li = document.createElement("li");
+        li.innerText = city;
+        output.appendChild(li);
+      });
+    }
+
+    document.getElementById("number_of_people").addEventListener("change", addCityInput);
+  </script>
+</body>
+</html>
